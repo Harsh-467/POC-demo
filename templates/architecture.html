@@ -1,129 +1,145 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container-fluid my-4">
-  <h2>OT Lab Architecture</h2>
 
-  <!-- 
-    Use the same dimensions as your original image or set a max-width for responsiveness.
-    The 'usemap' attribute references the map name below.
-  -->
-  <div style="position: relative; display: inline-block;">
-    <!-- Replace 'architecture.png' with your actual file name if different -->
-    <img 
-      src="{{ url_for('static', filename='images/architecture.png') }}" 
-      alt="Architecture Diagram"
-      usemap="#image-map"
-      style="max-width: 100%; height: auto;"
-    >
+<!-- 
+  We'll remove container spacing by placing our own container outside, 
+  or we can just rely on the parent's container. 
+  We'll keep it simple here.
+-->
 
-    <!-- Tooltip container -->
-    <div 
-      id="tooltip" 
-      style="
-        position: absolute;
-        display: none;
-        background: rgba(255, 255, 255, 0.95);
-        border: 1px solid #ccc;
-        padding: 8px 12px;
-        border-radius: 4px;
-        pointer-events: none;
-        font-size: 0.9rem;
-        z-index: 9999;
-      "
-    ></div>
-  </div>
+<h2>OT Lab Architecture</h2>
 
-  <!-- The image map with your coordinates -->
-  <map name="image-map">
-      <area alt="Fortigate" title="Fortigate" coords="911,217,607,2" shape="rect"
-            onmouseover="showTooltip(event, this.alt)" 
-            onmousemove="moveTooltip(event)" 
-            onmouseout="hideTooltip()" />
-      <area alt="Lev2SW" title="Lev2SW" coords="35,130,255,434" shape="rect"
-            onmouseover="showTooltip(event, this.alt)" 
-            onmousemove="moveTooltip(event)" 
-            onmouseout="hideTooltip()" />
-      <area alt="DC" title="DC" coords="345,320,494,475" shape="rect"
-            onmouseover="showTooltip(event, this.alt)" 
-            onmousemove="moveTooltip(event)" 
-            onmouseout="hideTooltip()" />
-      <area alt="NPS" title="NPS" coords="516,316,663,477" shape="rect"
-            onmouseover="showTooltip(event, this.alt)" 
-            onmousemove="moveTooltip(event)" 
-            onmouseout="hideTooltip()" />
-      <area alt="WSUS" title="WSUS" coords="804,318,960,468" shape="rect"
-            onmouseover="showTooltip(event, this.alt)" 
-            onmousemove="moveTooltip(event)" 
-            onmouseout="hideTooltip()" />
-      <area alt="KIWI" title="KIWI" coords="988,315,1133,463" shape="rect"
-            onmouseover="showTooltip(event, this.alt)" 
-            onmousemove="moveTooltip(event)" 
-            onmouseout="hideTooltip()" />
-      <area alt="SIEM" title="SIEM" coords="1161,316,1311,468" shape="rect"
-            onmouseover="showTooltip(event, this.alt)" 
-            onmousemove="moveTooltip(event)" 
-            onmouseout="hideTooltip()" />
-      <area alt="SW" title="SW" coords="1078,662,1206,769" shape="rect"
-            onmouseover="showTooltip(event, this.alt)" 
-            onmousemove="moveTooltip(event)" 
-            onmouseout="hideTooltip()" />
-      <area alt="SCALANCE" title="SCALANCE" coords="133,462,270,648" shape="rect"
-            onmouseover="showTooltip(event, this.alt)" 
-            onmousemove="moveTooltip(event)" 
-            onmouseout="hideTooltip()" />
-      <area alt="Historian" title="Historian" coords="338,553,496,675" shape="rect"
-            onmouseover="showTooltip(event, this.alt)" 
-            onmousemove="moveTooltip(event)" 
-            onmouseout="hideTooltip()" />
-      <area alt="OSC1" title="OSC1" coords="235,707,368,821" shape="rect"
-            onmouseover="showTooltip(event, this.alt)" 
-            onmousemove="moveTooltip(event)" 
-            onmouseout="hideTooltip()" />
-      <area alt="OSC2" title="OSC2" coords="484,709,625,827" shape="rect"
-            onmouseover="showTooltip(event, this.alt)" 
-            onmousemove="moveTooltip(event)" 
-            onmouseout="hideTooltip()" />
-      <area alt="OSS" title="OSS" coords="68,855,201,1001" shape="rect"
-            onmouseover="showTooltip(event, this.alt)" 
-            onmousemove="moveTooltip(event)" 
-            onmouseout="hideTooltip()" />
-      <area alt="PCS7ES" title="PCS7ES" coords="222,857,376,999" shape="rect"
-            onmouseover="showTooltip(event, this.alt)" 
-            onmousemove="moveTooltip(event)" 
-            onmouseout="hideTooltip()" />
-      <area alt="S7-400" title="S7-400" coords="410,857,557,995" shape="rect"
-            onmouseover="showTooltip(event, this.alt)" 
-            onmousemove="moveTooltip(event)" 
-            onmouseout="hideTooltip()" />
-      <area alt="IOModule" title="IOModule" coords="615,858,764,1006" shape="rect"
-            onmouseover="showTooltip(event, this.alt)" 
-            onmousemove="moveTooltip(event)" 
-            onmouseout="hideTooltip()" />
-      <area alt="HMI" title="HMI" coords="906,774,1067,886" shape="rect"
-            onmouseover="showTooltip(event, this.alt)" 
-            onmousemove="moveTooltip(event)" 
-            onmouseout="hideTooltip()" />
-      <area alt="TIAES" title="TIAES" coords="1222,766,1352,891" shape="rect"
-            onmouseover="showTooltip(event, this.alt)" 
-            onmousemove="moveTooltip(event)" 
-            onmouseout="hideTooltip()" />
-      <area alt="IOMod2" title="IOMod2" coords="889,920,1032,1050" shape="rect"
-            onmouseover="showTooltip(event, this.alt)" 
-            onmousemove="moveTooltip(event)" 
-            onmouseout="hideTooltip()" />
-      <area alt="1500" title="1500" coords="1050,919,1127,1064" shape="rect"
-            onmouseover="showTooltip(event, this.alt)" 
-            onmousemove="moveTooltip(event)" 
-            onmouseout="hideTooltip()" />
-      <area alt="1200" title="1200" coords="1199,956,1353,1059" shape="rect"
-            onmouseover="showTooltip(event, this.alt)" 
-            onmousemove="moveTooltip(event)" 
-            onmouseout="hideTooltip()" />
-  </map>
+<!-- 
+  Fixed-size container matching the exact resolution of the image.
+  If your image is indeed 1365x1075, use those values below. 
+-->
+<div id="diagram-container"
+     style="
+       position: relative; 
+       width: 1365px; 
+       height: 1075px; 
+       margin: 0 auto; 
+       border: 1px solid #ccc;
+     ">
+  
+  <img 
+    src="{{ url_for('static', filename='images/architecture.png') }}" 
+    alt="Architecture Diagram"
+    usemap="#image-map"
+    style="
+      width: 1365px; 
+      height: 1075px; 
+      display: block;
+    "
+  >
+
+  <!-- Tooltip container -->
+  <div 
+    id="tooltip" 
+    style="
+      position: absolute;
+      display: none;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid #ccc;
+      padding: 8px 12px;
+      border-radius: 4px;
+      pointer-events: none;
+      font-size: 0.9rem;
+      z-index: 9999;
+    "
+  ></div>
 </div>
 
+<!-- The image map with your coordinates (rect shape: x1,y1,x2,y2) -->
+<map name="image-map">
+    <area alt="Fortigate" title="Fortigate" coords="911,217,607,2" shape="rect"
+          onmouseover="showTooltip(event, this.alt)" 
+          onmousemove="moveTooltip(event)" 
+          onmouseout="hideTooltip()" />
+    <area alt="Lev2SW" title="Lev2SW" coords="35,130,255,434" shape="rect"
+          onmouseover="showTooltip(event, this.alt)" 
+          onmousemove="moveTooltip(event)" 
+          onmouseout="hideTooltip()" />
+    <area alt="DC" title="DC" coords="345,320,494,475" shape="rect"
+          onmouseover="showTooltip(event, this.alt)" 
+          onmousemove="moveTooltip(event)" 
+          onmouseout="hideTooltip()" />
+    <area alt="NPS" title="NPS" coords="516,316,663,477" shape="rect"
+          onmouseover="showTooltip(event, this.alt)" 
+          onmousemove="moveTooltip(event)" 
+          onmouseout="hideTooltip()" />
+    <area alt="WSUS" title="WSUS" coords="804,318,960,468" shape="rect"
+          onmouseover="showTooltip(event, this.alt)" 
+          onmousemove="moveTooltip(event)" 
+          onmouseout="hideTooltip()" />
+    <area alt="KIWI" title="KIWI" coords="988,315,1133,463" shape="rect"
+          onmouseover="showTooltip(event, this.alt)" 
+          onmousemove="moveTooltip(event)" 
+          onmouseout="hideTooltip()" />
+    <area alt="SIEM" title="SIEM" coords="1161,316,1311,468" shape="rect"
+          onmouseover="showTooltip(event, this.alt)" 
+          onmousemove="moveTooltip(event)" 
+          onmouseout="hideTooltip()" />
+    <area alt="SW" title="SW" coords="1078,662,1206,769" shape="rect"
+          onmouseover="showTooltip(event, this.alt)" 
+          onmousemove="moveTooltip(event)" 
+          onmouseout="hideTooltip()" />
+    <area alt="SCALANCE" title="SCALANCE" coords="133,462,270,648" shape="rect"
+          onmouseover="showTooltip(event, this.alt)" 
+          onmousemove="moveTooltip(event)" 
+          onmouseout="hideTooltip()" />
+    <area alt="Historian" title="Historian" coords="338,553,496,675" shape="rect"
+          onmouseover="showTooltip(event, this.alt)" 
+          onmousemove="moveTooltip(event)" 
+          onmouseout="hideTooltip()" />
+    <area alt="OSC1" title="OSC1" coords="235,707,368,821" shape="rect"
+          onmouseover="showTooltip(event, this.alt)" 
+          onmousemove="moveTooltip(event)" 
+          onmouseout="hideTooltip()" />
+    <area alt="OSC2" title="OSC2" coords="484,709,625,827" shape="rect"
+          onmouseover="showTooltip(event, this.alt)" 
+          onmousemove="moveTooltip(event)" 
+          onmouseout="hideTooltip()" />
+    <area alt="OSS" title="OSS" coords="68,855,201,1001" shape="rect"
+          onmouseover="showTooltip(event, this.alt)" 
+          onmousemove="moveTooltip(event)" 
+          onmouseout="hideTooltip()" />
+    <area alt="PCS7ES" title="PCS7ES" coords="222,857,376,999" shape="rect"
+          onmouseover="showTooltip(event, this.alt)" 
+          onmousemove="moveTooltip(event)" 
+          onmouseout="hideTooltip()" />
+    <area alt="S7-400" title="S7-400" coords="410,857,557,995" shape="rect"
+          onmouseover="showTooltip(event, this.alt)" 
+          onmousemove="moveTooltip(event)" 
+          onmouseout="hideTooltip()" />
+    <area alt="IOModule" title="IOModule" coords="615,858,764,1006" shape="rect"
+          onmouseover="showTooltip(event, this.alt)" 
+          onmousemove="moveTooltip(event)" 
+          onmouseout="hideTooltip()" />
+    <area alt="HMI" title="HMI" coords="906,774,1067,886" shape="rect"
+          onmouseover="showTooltip(event, this.alt)" 
+          onmousemove="moveTooltip(event)" 
+          onmouseout="hideTooltip()" />
+    <area alt="TIAES" title="TIAES" coords="1222,766,1352,891" shape="rect"
+          onmouseover="showTooltip(event, this.alt)" 
+          onmousemove="moveTooltip(event)" 
+          onmouseout="hideTooltip()" />
+    <area alt="IOMod2" title="IOMod2" coords="889,920,1032,1050" shape="rect"
+          onmouseover="showTooltip(event, this.alt)" 
+          onmousemove="moveTooltip(event)" 
+          onmouseout="hideTooltip()" />
+    <area alt="1500" title="1500" coords="1050,919,1127,1064" shape="rect"
+          onmouseover="showTooltip(event, this.alt)" 
+          onmousemove="moveTooltip(event)" 
+          onmouseout="hideTooltip()" />
+    <area alt="1200" title="1200" coords="1199,956,1353,1059" shape="rect"
+          onmouseover="showTooltip(event, this.alt)" 
+          onmousemove="moveTooltip(event)" 
+          onmouseout="hideTooltip()" />
+</map>
+
 <script>
-  // Hardcoded info for each device
+  // ------------------- 1. Hardcoded Device Info -------------------
   const deviceInfo = {
     "Fortigate": "Fortigate Firewall<br>IP: 192.168.1.1<br>Vendor: Fortinet",
     "Lev2SW": "Level 2 Switch<br>Ports: 24<br>Vendor: Cisco",
@@ -148,48 +164,83 @@
     "1200": "Siemens S7-1200<br>IP: 192.168.7.11"
   };
 
+  // ------------------- 2. Tooltip Logic -------------------
   const tooltip = document.getElementById('tooltip');
 
   function showTooltip(e, deviceKey) {
-  tooltip.innerHTML = deviceInfo[deviceKey] || "No info available";
-  tooltip.style.display = "block"; // make it visible so we can measure its height
-  positionTooltip(e);
-}
-
-function moveTooltip(e) {
-  positionTooltip(e);
-}
-
-function positionTooltip(e) {
-  const offset = 10;
-  let left = e.pageX + offset;
-  let top = e.pageY + offset;
-
-  // Get the tooltip dimensions after it's displayed
-  const tooltipHeight = tooltip.offsetHeight;
-  const tooltipWidth = tooltip.offsetWidth;
-  
-  // Get the viewport dimensions
-  const viewportHeight = window.innerHeight;
-  const viewportWidth = window.innerWidth;
-
-  // Adjust if the tooltip would go off the bottom of the viewport
-  if (top + tooltipHeight > viewportHeight) {
-    top = e.pageY - tooltipHeight - offset;
+    tooltip.innerHTML = deviceInfo[deviceKey] || "No info available";
+    tooltip.style.display = "block";
+    positionTooltip(e);
   }
 
-  // Optionally, adjust if the tooltip would go off the right edge
-  if (left + tooltipWidth > viewportWidth) {
-    left = e.pageX - tooltipWidth - offset;
+  function moveTooltip(e) {
+    positionTooltip(e);
   }
 
-  tooltip.style.left = left + "px";
-  tooltip.style.top = top + "px";
-}
+  function hideTooltip() {
+    tooltip.style.display = "none";
+  }
 
-function hideTooltip() {
-  tooltip.style.display = "none";
-}
+  function positionTooltip(e) {
+    const offset = 10;
+    // Use the mouse's clientX/clientY for page-level absolute positioning
+    let left = e.clientX + offset;
+    let top = e.clientY + offset;
 
+    const tooltipWidth = tooltip.offsetWidth;
+    const tooltipHeight = tooltip.offsetHeight;
+
+    // Viewport boundaries
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+
+    // If the tooltip would overflow to the right, flip it to the left side
+    if (left + tooltipWidth > vw) {
+      left = e.clientX - tooltipWidth - offset;
+    }
+    // If the tooltip would overflow at the bottom, flip it above
+    if (top + tooltipHeight > vh) {
+      top = e.clientY - tooltipHeight - offset;
+    }
+
+    tooltip.style.left = left + "px";
+    tooltip.style.top = top + "px";
+  }
+
+  // ------------------- 3. Debug Hotspot Overlays (Optional) -------------------
+  const DEBUG_HOTSPOTS = false; // Set to false to hide red dashed overlays
+  if (DEBUG_HOTSPOTS) {
+    window.addEventListener('load', () => {
+      const container = document.getElementById('diagram-container');
+      const areas = document.querySelectorAll("map[name='image-map'] area");
+
+      areas.forEach(area => {
+        const coords = area.getAttribute("coords").split(",");
+        if (coords.length === 4) {
+          // coords: x1,y1,x2,y2
+          let x1 = parseFloat(coords[0]);
+          let y1 = parseFloat(coords[1]);
+          let x2 = parseFloat(coords[2]);
+          let y2 = parseFloat(coords[3]);
+
+          const left = Math.min(x1, x2);
+          const top = Math.min(y1, y2);
+          const width = Math.abs(x2 - x1);
+          const height = Math.abs(y2 - y1);
+
+          // Create overlay
+          const overlay = document.createElement('div');
+          overlay.style.position = "absolute";
+          overlay.style.left = left + "px";
+          overlay.style.top = top + "px";
+          overlay.style.width = width + "px";
+          overlay.style.height = height + "px";
+          overlay.style.border = "2px dashed red";
+          overlay.style.pointerEvents = "none";
+          container.appendChild(overlay);
+        }
+      });
+    });
+  }
 </script>
 {% endblock %}
