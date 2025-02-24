@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="mt-4">
+  <h2>Welcome to the OT Lab Dashboard</h2>
+  <p>Select an option from the navigation bar or use the links below:</p>
+  <div class="list-group">
+    <a href="{{ url_for('architecture') }}" class="list-group-item list-group-item-action">View Architecture</a>
+    <a href="{{ url_for('teaming') }}" class="list-group-item list-group-item-action">View Teaming</a>
+  </div>
+</div>
+{% endblock %}
