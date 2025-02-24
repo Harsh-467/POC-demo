@@ -150,23 +150,46 @@
 
   const tooltip = document.getElementById('tooltip');
 
-  // Show tooltip at cursor position
   function showTooltip(e, deviceKey) {
-    tooltip.innerHTML = deviceInfo[deviceKey] || "No info available";
-    tooltip.style.left = (e.pageX + 10) + "px";
-    tooltip.style.top = (e.pageY + 10) + "px";
-    tooltip.style.display = "block";
+  tooltip.innerHTML = deviceInfo[deviceKey] || "No info available";
+  tooltip.style.display = "block"; // make it visible so we can measure its height
+  positionTooltip(e);
+}
+
+function moveTooltip(e) {
+  positionTooltip(e);
+}
+
+function positionTooltip(e) {
+  const offset = 10;
+  let left = e.pageX + offset;
+  let top = e.pageY + offset;
+
+  // Get the tooltip dimensions after it's displayed
+  const tooltipHeight = tooltip.offsetHeight;
+  const tooltipWidth = tooltip.offsetWidth;
+  
+  // Get the viewport dimensions
+  const viewportHeight = window.innerHeight;
+  const viewportWidth = window.innerWidth;
+
+  // Adjust if the tooltip would go off the bottom of the viewport
+  if (top + tooltipHeight > viewportHeight) {
+    top = e.pageY - tooltipHeight - offset;
   }
 
-  // Move tooltip with the mouse
-  function moveTooltip(e) {
-    tooltip.style.left = (e.pageX + 10) + "px";
-    tooltip.style.top = (e.pageY + 10) + "px";
+  // Optionally, adjust if the tooltip would go off the right edge
+  if (left + tooltipWidth > viewportWidth) {
+    left = e.pageX - tooltipWidth - offset;
   }
 
-  // Hide tooltip
-  function hideTooltip() {
-    tooltip.style.display = "none";
-  }
+  tooltip.style.left = left + "px";
+  tooltip.style.top = top + "px";
+}
+
+function hideTooltip() {
+  tooltip.style.display = "none";
+}
+
 </script>
 {% endblock %}
