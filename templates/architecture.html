@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container-fluid d-flex flex-column align-items-center p-0">
+    <h2 class="my-3">OT Lab Architecture</h2>
+  
+    <!-- Fixed-size container for your diagram -->
+    <div id="diagram-container" 
+         style="position: relative; width: 1365px; height: 1075px; border: 1px solid #ccc;">
+      <img src="{{ url_for('static', filename='images/architecture.png') }}" 
+           alt="Architecture Diagram" 
+           style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+  </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const container = document.getElementById('diagram-container');
+  const totalHotspots = 21;
+  const columns = 7;   // Distribute evenly across 7 columns
+  const rows = 3;      // and 3 rows (7 x 3 = 21)
+  const containerWidth = 1365;
+  const containerHeight = 1075;
+  const cellWidth = containerWidth / columns;   // Approx. 195px
+  const cellHeight = containerHeight / rows;      // Approx. 358px
+  const hotspotSize = 40;  // Size of each hotspot square
+
+  let hotspotIndex = 0;
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < columns; c++) {
+      if (hotspotIndex >= totalHotspots) break;
+
+      // Calculate the center position of each grid cell
+      const centerX = c * cellWidth + cellWidth / 2;
+      const centerY = r * cellHeight + cellHeight / 2;
+
+      // Create hotspot element
+      const hotspot = document.createElement('div');
+      hotspot.className = 'hotspot';
+      hotspot.id = 'hotspot-' + (hotspotIndex + 1);
+      hotspot.style.position = 'absolute';
+      hotspot.style.width = hotspotSize + 'px';
+      hotspot.style.height = hotspotSize + 'px';
+      hotspot.style.left = (centerX - hotspotSize / 2) + 'px';
+      hotspot.style.top = (centerY - hotspotSize / 2) + 'px';
+      hotspot.style.border = '2px dashed red';
+      hotspot.style.boxSizing = 'border-box';
+      hotspot.style.cursor = 'pointer';
+      
+      // Optionally add a background color or opacity for testing:
+      // hotspot.style.backgroundColor = "rgba(255,0,0,0.2)";
+      
+      container.appendChild(hotspot);
+      hotspotIndex++;
+    }
+  }
+});
+</script>
+{% endblock %}

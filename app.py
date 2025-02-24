@@ -20,7 +20,7 @@ def login():
 @app.route('/architecture')
 def architecture():
     # Placeholder for the architecture dashboard
-    return "<h1>Architecture Page Placeholder</h1>"
+    return render_template('architecture.html')
 
 @app.route('/teaming')
 def teaming():
