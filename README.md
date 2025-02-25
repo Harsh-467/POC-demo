@@ -1,0 +1,1 @@
+This project is for demonstrating and showcasing an architecture.
